@@ -15,6 +15,13 @@ fn main() {
     // once a mutable variable has been assigned a type, it can only be changed to values of that
     // same type.
 
+    // If a variable will be constant and unchanged throughout an entire program, define it with
+    // const:
+
+    const CONSTANT_VALUE: u8 = 4;
+    println!("The value of CONSTANT_VALUE is fixed: {CONSTANT_VALUE}");
+    // the identifier of a const should be upper-snake-case.
+
     /* Scalar Types */
     // A scalar type represents a single value. Rust has four primary scalar types: Integers,
     // floating-point numbers, Booleans, and Characters
