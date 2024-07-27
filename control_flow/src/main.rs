@@ -13,6 +13,10 @@ fn main() {
     val_loop([1, 2, 3, 4, 5]);
     val_loop([3, 19, 18, 16, 3]);
     val_loop([1, 1, 1, 1, 1]);
+    labeled_loop();
+    while_loop(3u8);
+    while_loop(10u8);
+    for_loop();
 }
 
 fn conditional(num: i16) {
@@ -67,3 +71,49 @@ fn val_loop(list: [u8; 5]) {
 }
 // You can also return from inside a loop. While break only exits the loop, return always exits
 // the current function.
+
+/* Loop Labels to Disambiguate Between Multiple Loops */
+// If you have loops within loops, break and continue apply to the innermost loop at that point.
+// You can optionally specify a loop label on a loop that you can then use with break or continue
+// to specify those keywords apply to the labeled loop instead of the innermost loop.
+// Loop labels must begin with a single quote:
+fn labeled_loop() {
+    let mut count: i8 = 0;
+    'counting_up: loop {
+        println!("count = {count}");
+        let mut remaining = 10;
+
+        loop {
+            println!("remaining = {remaining}");
+            if remaining == 9 {
+                break;
+            }
+            if count == 2 {
+                break 'counting_up;
+            }
+            remaining -= 1;
+        }
+        count += 1;
+    }
+    println!("End count = {count}")
+}
+
+/* Conditional Loops with While */
+// a While loop uses an expression in its syntax to determine if it will break or keep looping:
+fn while_loop(mut num: u8) {
+    while num != 0 {
+        println!("num is {num}");
+        num -= 1;
+    }
+    println!("Finished.");
+}
+
+/* Looping through a collection with for */
+// you can use a for loop to iterate though each element of a collection, and use that element as a
+// value in the following block of code:
+fn for_loop() {
+    let arr: [&str; 6] = ["one", "two", "three", "four", "five", "six"];
+    for element in arr {
+        println!("{element}");
+    }
+}
