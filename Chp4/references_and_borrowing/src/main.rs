@@ -17,6 +17,12 @@ fn main() {
     let mut s = String::from("Hello, fooman!");
     mutable_ref(&mut s);
     println!("{s}");
+    /* Mutable referenes have a big restriction: if you have a metable reference to a value, you
+     * can have no other references to that value. */
+    /* NOTE: a reference must exist in the same scope as its value. A function cannot return a
+     * reference to a value created in the scope of the function, because as soon as the function
+     * ends the value will be dropped, and the reference will point to nothing or some other data.
+     * Instead, just return the value directly, so ownership is transferred to the parent scope. */
 }
 fn calculate_length(s: &String) -> usize {
     println!("{s}(from inside the function using a reference!)");
@@ -27,3 +33,7 @@ fn calculate_length(s: &String) -> usize {
 fn mutable_ref(some_string: &mut String) {
     some_string.push_str(" How's the bar?")
 }
+// RULES RECAP:
+/* At any given time a value can have either ONE mutable reference, or any number of immutable
+* references.
+ * References must always point to valid values. */
