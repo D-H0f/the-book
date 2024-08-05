@@ -1,4 +1,4 @@
-/* Structs are similar to tuples in that both old multiple related values. Like tuples, the pieces
+/* Structs are similar to tuples in that both hold multiple related values. Like tuples, the pieces
 * of a struct can be different types. Unlike tuples, in a struct you'll name each piece of data so
 * it's clear what the values mean. Adding these names means that structs are more flexable than
 * tuples; you don't hve to rely on the order of the data to specify or access the values of an
