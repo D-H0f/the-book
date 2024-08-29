@@ -40,6 +40,25 @@ enum Message {
     Write(String),
     ChangeColor(i32, i32, i32),
 }
+// Enum Methods
+/* There is one more similarity between enums and structs: just as we're able to define methods on
+* structs using impl, we're also able to define methods on enums. Here's a method named call that
+* we could define on our Message enum:
+* */
+impl Message {
+    fn call(&self) {
+        match self {
+            Message::Quit => println!("quitting..."),
+            Message::Move { x, y } => println!("Moving to position {}, {}", x, y),
+            Message::Write(message) => {
+                println!("Writing message \"{}\" to current positon", message)
+            }
+            Message::ChangeColor(r, g, b) => {
+                println!("Changing color to the value ({}, {}, {})", r, g, b)
+            }
+        }
+    }
+}
 fn main() {
     // Enum Values
     /* we can create instances of each of the two variants like this: */
@@ -88,4 +107,8 @@ fn main() {
     if let Message::ChangeColor(r, g, b) = &color_change {
         println!("new color value is: {},{},{}", r, g, b);
     }
+    quit_message.call();
+    move_message.call();
+    write_message.call();
+    color_change.call();
 }
