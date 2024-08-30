@@ -107,6 +107,29 @@ fn option_enum_examples() {
         Some(num) => println!("{}", num),
         None => println!("The variable is not currently holding a value."),
     }
+    /* The type of some_number is Option<i32>. The type of some_char is Option<char>, which is a
+    * different type. Rust can infer these types because we've specified a value inside the Some
+    * variant. For absent_number, Rust requires us to annotate the overall Option type: the
+    * compiler can't infer the type that the corresponding Some variant will hold by looking only
+    * at a None value. Here, we tell Rust that we mean for absent_number to be of type Option<i32>.
+    * When we have a Some value, we know that a value is present and the value is help within the
+    * Some. When we have a None value, in some sense it means the same thing as null: we don't have
+    * a valid value. So why is having Option<T> any better than having null?
+    * In short, because Option<T> and T (where T can be any type) are different types, the compiler
+    * won't let us use an Option<T> value as if it were definitely a valid value. For example, this
+    * code won't compile, because it's trying to add an i8 to an Option<i8>:
+    let x: i8 = 5;
+    let y: Option<i8> = Some(5);
+    let sum = x + y;
+    * The compiler will throw an error because it does not unserstand how to add an i8 and an
+    * Option<i8>, because they're different types. When we have a value of a type i8 in Rust, the
+    * compiler will ensure that we always have a valid value. Only when we have an Option<i8> (or
+    * whatever type of value we're working with) do we have to worry about possibly not having a
+    * value, and the compiler will make sure we handle that case before using the value.
+    * In other words, you have to convert an Option<T> to a T before you can perform T operations
+    * with it. Genrally, this helps catch one of the most common issues with null: assuming that
+    * something isn't null when it actually is.
+    * */
 }
 fn main() {
     // Enum Values
