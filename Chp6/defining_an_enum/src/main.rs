@@ -59,6 +59,55 @@ impl Message {
         }
     }
 }
+// The option Enum and its Advantages over Null Values
+/* Next we will be going over Option, an enum that is defined in the standard library. The Option
+* type encodes the very common scenario in which a value could be something or it could be nothing.
+* For example, if you request the first item in a non-empty list, you would get a value. If you
+* request the first item in an empty list, you would get nothing. Expressingt this concept in terms
+* of the type system means the compiler can check whether you've handled all the cases you should
+* be handling; this functionality can prevent bugs that are emtremely common in other programming
+* languages.
+* Programming language design is often thought of in terms of which features you include, but the
+* features you exclude are important too. Rust doesn't have the null feature that many other
+* languages have. Null is a value that means there is no value there. In languages with null,
+* variables can always be in one of two states; null or not-null.
+* The problem with null values is that if you try to use a null value as a not-null value, you'll
+* get an error of some kind. Because this null or not-null property is pervasive, it's extremely
+* easy to make this kind of error.
+* However, the concept that null is trying to express is still a usefell one: a null is a value
+* that is currently invalid or absent for some reason.
+* The problem isn't really with the concept but with the particular implementation. As such, Rust
+* does not have nulls, but it does have an enum that can encode the concept of a value being
+* present or absent. This enum is Option<T>, and it is defined by the standard library as follows:
+* enum Option<T> {
+* None,
+* Some(T),
+* }
+* The Option<T> enum is so useful that it's even included in the prelude; you don't need to bring
+* it into scope explicitly. It's variants are also included in the prelude: you can use Some and
+* None directly without the Option:: prefix. The Option<T> enum is still just a regular enum, and
+* Some(T) and None are still variants of type Option<T>.
+* The <T> sytax is a feature of Rust we haven't talked about yet. It's a generic type parameter,
+* and we'll cover generics in more detail in Chapter 10. For now, all you need to know is that <T>
+* means that the Some variant of the Option enum can hold one piece of data of any type, and that
+* each concrete type that gets used in place of T makes the overall Option<T> type a different
+* type. Here are some examples of using Option values to hold number types and string types:
+* */
+fn option_enum_examples() {
+    let some_number = Some(5u8);
+    let some_char = Some('e');
+    let absent_number: Option<i32> = None;
+    if let Some(num) = &some_number {
+        println!("{}", num);
+    }
+    if let Some(c) = some_char {
+        println!("{}", c)
+    }
+    match &absent_number {
+        Some(num) => println!("{}", num),
+        None => println!("The variable is not currently holding a value."),
+    }
+}
 fn main() {
     // Enum Values
     /* we can create instances of each of the two variants like this: */
@@ -111,4 +160,6 @@ fn main() {
     move_message.call();
     write_message.call();
     color_change.call();
+    color_change.call();
+    option_enum_examples();
 }
